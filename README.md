@@ -14,11 +14,15 @@ npm install @mojis/skin-tone
 ## 🚀 Usage
 
 ```ts
-import { setSkinTone } from "@mojis/skin-tone";
+import { getSkinTone, setSkinTone } from "@mojis/skin-tone";
 
 console.log(setSkinTone("👍", "dark")); // -> 👍🏿
 console.log(setSkinTone("👍", "light")); // -> 👍🏻
 console.log(setSkinTone("👍🏻", "none")); // -> 👍
+
+console.log(getSkinTone("👍🏿")); // -> dark
+console.log(getSkinTone("👍🏻")); // -> light
+console.log(getSkinTone("👍")); // -> none
 ```
 
 ## 📄 License
