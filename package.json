@@ -1,7 +1,7 @@
 {
   "name": "@mojis/skin-tone",
   "version": "0.1.0",
-  "description": "",
+  "description": "utilities to work with emoji skin tones",
   "type": "module",
   "author": {
     "name": "Lucas Nørgård",
