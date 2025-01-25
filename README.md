@@ -1,9 +1,9 @@
-# skin-tones
+# @mojis/skin-tone
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 
-Modify the skin tone of emojis.
+utilities to work with emoji skin tones
 
 ## 📦 Installation
 
