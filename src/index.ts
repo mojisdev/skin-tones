@@ -74,3 +74,33 @@ export function setSkinTone(emoji: string, tone: SkinTone): string {
 
   return processedEmoji;
 }
+
+/**
+ * Gets the skin tone from an emoji string.
+ *
+ * @param {string} emoji - The emoji string to extract the skin tone from
+ * @returns {SkinTone} The skin tone value from the Fitzpatrick scale, or "none" if no skin tone is present
+ *
+ * @example
+ * ```ts
+ * getSkinTone("👋🏽") // Returns "medium"
+ * getSkinTone("👋") // Returns "none"
+ * ```
+ */
+export function getSkinTone(emoji: string): SkinTone {
+  const skinToneRegex = /[\u{1F3FB}-\u{1F3FF}]/gu;
+
+  const match = emoji.match(skinToneRegex);
+
+  if (match && match.length > 0) {
+    const skinToneModifier = match[0];
+
+    for (const [tone, modifier] of FITZPATRICK_SCALE.entries()) {
+      if (modifier === skinToneModifier) {
+        return tone;
+      }
+    }
+  }
+
+  return "none";
+}
