@@ -76,6 +76,68 @@ export function setSkinTone(emoji: string, tone: SkinTone): string {
 }
 
 /**
+ * Applies skin tone modifiers to an emoji string.
+ *
+ * @param {string} emoji - The emoji string to modify
+ * @param {SkinTone[]} tones - Array of skin tones to apply. If multiple tones are provided, they will be applied in sequence to modifiable components
+ * @returns {string} The emoji with applied skin tones
+ *
+ * @example
+ * ```ts
+ * setSkinTones("👋", ["light"]) // "👋🏻"
+ * setSkinTones("🫱🏿‍🫲🏾", ["light", "dark"]) // "🫱🏻‍🫲🏿"
+ * setSkinTones("👨‍👩‍👧‍👦", ["light"]) // "👨‍👩‍👧‍👦" (family emojis are not modified)
+ * ```
+ */
+export function setSkinTones(emoji: string, tones: SkinTone[]): string {
+  if (tones.some((tone) => !FITZPATRICK_SCALE.has(tone))) {
+    throw new Error(`invalid skin tone in: ${tones.join(", ")}`);
+  }
+
+  // remove existing skin tone modifiers
+  emoji = emoji.replace(/[\u{1F3FB}-\u{1F3FF}]/gu, "");
+
+  const EMOJI_MODIFIER_BASE_REGEX = /\p{Emoji_Modifier_Base}/gu;
+
+  // fast path if:
+  // 1. no tones provided
+  // 2. all tones are 'none'
+  // 3. the emojis has more than two modifiable components
+  // 4. it is a two-person family emoji
+  if (
+    !tones.length
+    || tones.every((tone) => tone === "none")
+    || (emoji.match(EMOJI_MODIFIER_BASE_REGEX)?.length ?? 0) > 2
+    || TWO_FAMILY_EMOJIS.has(emoji)
+  ) {
+    return emoji;
+  }
+
+  let processedEmoji = "";
+  let toneIndex = 0;
+
+  for (const codePoint of emoji) {
+    // if we encounter an emoji presentation selector, we should skip it
+    if (codePoint === EMOJI_PRESENTATION_SELECTOR) {
+      continue;
+    }
+
+    processedEmoji += codePoint;
+
+    // tone should be applied to all modifiable components.
+    if (EMOJI_MODIFIER_BASE_REGEX.test(codePoint)) {
+      const currentTone = tones[toneIndex % tones.length];
+      if (currentTone == null) continue;
+
+      processedEmoji += FITZPATRICK_SCALE.get(currentTone);
+      toneIndex++;
+    }
+  }
+
+  return processedEmoji;
+}
+
+/**
  * Gets the skin tone from an emoji string.
  *
  * @param {string} emoji - The emoji string to extract the skin tone from
