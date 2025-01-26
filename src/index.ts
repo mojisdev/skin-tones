@@ -83,14 +83,14 @@ export function setSkinTone(emoji: string, tone: SkinTone): string {
  *
  * @example
  * ```ts
- * getSkinTone("👋🏽") // Returns "medium"
- * getSkinTone("👋") // Returns "none"
+ * getSkinTone("👋🏽") // => "medium"
+ * getSkinTone("👋") // => "none"
  * ```
  */
 export function getSkinTone(emoji: string): SkinTone {
-  const skinToneRegex = /[\u{1F3FB}-\u{1F3FF}]/gu;
+  const SKIN_TONE_REGEX = /[\u{1F3FB}-\u{1F3FF}]/gu;
 
-  const match = emoji.match(skinToneRegex);
+  const match = emoji.match(SKIN_TONE_REGEX);
 
   if (match && match.length > 0) {
     const skinToneModifier = match[0];
@@ -103,4 +103,19 @@ export function getSkinTone(emoji: string): SkinTone {
   }
 
   return "none";
+}
+
+/**
+ * Checks if the given emoji contains a skin tone modifier
+ * @param {string} emoji - The emoji to check for skin tone
+ * @returns {boolean} `true` if the emoji contains a skin tone modifier, `false` otherwise
+ *
+ * @example
+ * ```ts
+ * hasSkinTone("👋") // => false
+ * hasSkinTone("👋🏻") // => true
+ * ```
+ */
+export function hasSkinTone(emoji: string): boolean {
+  return getSkinTone(emoji) !== "none";
 }

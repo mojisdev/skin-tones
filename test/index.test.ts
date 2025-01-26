@@ -1,6 +1,6 @@
 import type { SkinTone } from "../src";
 import { describe, expect, it } from "vitest";
-import { getSkinTone, setSkinTone } from "../src";
+import { getSkinTone, hasSkinTone, setSkinTone } from "../src";
 
 describe("set skin tone", () => {
   it("should return the same emoji if skin tone is none", () => {
@@ -141,5 +141,35 @@ describe("get skin tone", () => {
 
   it("should return none for non-modifiable emoji", () => {
     expect(getSkinTone("🌍")).toBe("none");
+  });
+});
+
+describe("has skin tone", () => {
+  it("should return false for emoji without skin tone", () => {
+    expect(hasSkinTone("👍")).toBe(false);
+  });
+
+  it("should return true for emoji with white skin tone", () => {
+    expect(hasSkinTone("👍🏻")).toBe(true);
+  });
+
+  it("should return true for emoji with cream skin tone", () => {
+    expect(hasSkinTone("👍🏼")).toBe(true);
+  });
+
+  it("should return true for emoji with light skin tone", () => {
+    expect(hasSkinTone("👍🏽")).toBe(true);
+  });
+
+  it("should return true for emoji with brown skin tone", () => {
+    expect(hasSkinTone("👍🏾")).toBe(true);
+  });
+
+  it("should return true for emoji with dark skin tone", () => {
+    expect(hasSkinTone("👍🏿")).toBe(true);
+  });
+
+  it("should return false for non-modifiable emoji", () => {
+    expect(hasSkinTone("🌍")).toBe(false);
   });
 });
