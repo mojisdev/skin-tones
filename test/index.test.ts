@@ -142,6 +142,10 @@ describe("get skin tone", () => {
   it("should return none for non-modifiable emoji", () => {
     expect(getSkinTone("🌍")).toBe("none");
   });
+
+  it("should return the first skin tone for emoji with multiple skin tones", () => {
+    expect(getSkinTone("👩🏼‍❤️‍👨🏿")).toBe("cream");
+  });
 });
 
 describe("has skin tone", () => {
