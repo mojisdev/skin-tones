@@ -1,14 +1,14 @@
 // https://en.wikipedia.org/wiki/Fitzpatrick_scale
 // i'm not sure if this is the best way to describe them
 // i'm sorry if you feel offended by the names
-export type SkinTone = "none" | "white" | "cream" | "light" | "brown" | "dark";
+export type SkinTone = "none" | "light" | "medium-light" | "medium" | "medium-dark" | "dark";
 
 export const FITZPATRICK_SCALE = new Map<SkinTone, string>([
   ["none", ""],
-  ["white", "🏻"],
-  ["cream", "🏼"],
-  ["light", "🏽"],
-  ["brown", "🏾"],
+  ["light", "🏻"],
+  ["medium-light", "🏼"],
+  ["medium", "🏽"],
+  ["medium-dark", "🏾"],
   ["dark", "🏿"],
 ]);
 

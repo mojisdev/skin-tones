@@ -1,77 +1,68 @@
 import type { SkinTone } from "../src";
 import { describe, expect, it } from "vitest";
-import { getSkinTone, hasSkinTone, setSkinTone } from "../src";
+import { getSkinTone, hasSkinTone, setMultipleSkinTones, setSkinTone } from "../src";
 
 describe("set skin tone", () => {
-  it("should return the same emoji if skin tone is none", () => {
+  it("should return the same emoji if skin tone is `none`", () => {
     const emoji = "👍";
-    const tone: SkinTone = "none";
     const expectedEmoji = emoji;
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "none");
     expect(result).toBe(expectedEmoji);
   });
 
-  it("should add skin tone to emoji if skin tone is white", () => {
+  it("should add skin tone to emoji if skin tone is `light`", () => {
     const emoji = "👍";
-    const tone: SkinTone = "white";
     const expectedEmoji = "👍🏻";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "light");
     expect(result).toBe(expectedEmoji);
   });
 
-  it("should add skin tone to emoji if skin tone is cream", () => {
+  it("should add skin tone to emoji if skin tone is `medium-light`", () => {
     const emoji = "👍";
-    const tone: SkinTone = "cream";
     const expectedEmoji = "👍🏼";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "medium-light");
     expect(result).toBe(expectedEmoji);
   });
 
-  it("should add skin tone to emoji if skin tone is light", () => {
+  it("should add skin tone to emoji if skin tone is `medium`", () => {
     const emoji = "👍";
-    const tone: SkinTone = "light";
     const expectedEmoji = "👍🏽";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "medium");
     expect(result).toBe(expectedEmoji);
   });
 
-  it("should add skin tone to emoji if skin tone is brown", () => {
+  it("should add skin tone to emoji if skin tone is `medium-dark`", () => {
     const emoji = "👍";
-    const tone: SkinTone = "brown";
     const expectedEmoji = "👍🏾";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "medium-dark");
     expect(result).toBe(expectedEmoji);
   });
 
-  it("should add skin tone to emoji if skin tone is dark", () => {
+  it("should add skin tone to emoji if skin tone is `dark`", () => {
     const emoji = "👍";
-    const tone: SkinTone = "dark";
     const expectedEmoji = "👍🏿";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "dark");
     expect(result).toBe(expectedEmoji);
   });
 
-  it("should remove skin tone to emoji if skin tone is none", () => {
+  it("should remove skin tone to emoji if skin tone is `none`", () => {
     const emoji = "👍🏿";
-    const tone: SkinTone = "none";
     const expectedEmoji = "👍";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "none");
     expect(result).toBe(expectedEmoji);
   });
 
   it("should add different skin tone to emoji", () => {
     const emoji = "👸🏼";
-    const tone: SkinTone = "light";
     const expectedEmoji = "👸🏽";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "medium");
     expect(result).toBe(expectedEmoji);
   });
 
   it("should return the same emoji if skin tone can't be set", () => {
     const emoji = "🌍";
-    const tone: SkinTone = "light";
     const expectedEmoji = "🌍";
-    const result = setSkinTone(emoji, tone);
+    const result = setSkinTone(emoji, "light");
     expect(result).toBe(expectedEmoji);
   });
 
@@ -79,7 +70,7 @@ describe("set skin tone", () => {
     it.each([
       {
         emoji: "🕵️‍♀️",
-        tone: "brown",
+        tone: "medium-dark",
         expected: "🕵🏾‍♀",
       },
       {
@@ -89,53 +80,53 @@ describe("set skin tone", () => {
       },
       {
         emoji: "👩‍❤️‍👨",
-        tone: "brown",
+        tone: "medium-dark",
         expected: "👩🏾‍❤‍👨🏾",
       },
       {
         emoji: "👬",
-        tone: "white",
+        tone: "light",
         expected: "👬🏻",
       },
-    ])("expect $emoji to be $expected", ({ emoji, tone, expected }) => {
-      const result = setSkinTone(emoji, tone as SkinTone);
+    ] as const)("expect $emoji to be $expected", ({ emoji, tone, expected }) => {
+      const result = setSkinTone(emoji, tone);
       expect(result).toBe(expected);
     });
   });
 
   describe("handle emojis without support for skin tones", () => {
     it.each([
-      ["👩‍👦", "brown", "👩‍👦"],
-      ["👩‍👩‍👧‍👧", "white", "👩‍👩‍👧‍👧"],
-    ])("should ignore %s", (emoji, tone, expected) => {
-      const result = setSkinTone(emoji, tone as SkinTone);
+      ["👩‍👦", "medium-dark", "👩‍👦"],
+      ["👩‍👩‍👧‍👧", "light", "👩‍👩‍👧‍👧"],
+    ] as const)("should ignore %s", (emoji, tone, expected) => {
+      const result = setSkinTone(emoji, tone);
       expect(result).toBe(expected);
     });
   });
 });
 
 describe("get skin tone", () => {
-  it("should return none for emoji without skin tone", () => {
+  it("should return `none` for emoji without skin tone", () => {
     expect(getSkinTone("👍")).toBe("none");
   });
 
-  it("should return white for emoji with white skin tone", () => {
-    expect(getSkinTone("👍🏻")).toBe("white");
+  it("should return `light` for emoji with `light` skin tone", () => {
+    expect(getSkinTone("👍🏻")).toBe("light");
   });
 
-  it("should return cream for emoji with cream skin tone", () => {
-    expect(getSkinTone("👍🏼")).toBe("cream");
+  it("should return `medium-light` for emoji with `medium-light` skin tone", () => {
+    expect(getSkinTone("👍🏼")).toBe("medium-light");
   });
 
-  it("should return light for emoji with light skin tone", () => {
-    expect(getSkinTone("👍🏽")).toBe("light");
+  it("should return `medium` for emoji with `medium` skin tone", () => {
+    expect(getSkinTone("👍🏽")).toBe("medium");
   });
 
-  it("should return brown for emoji with brown skin tone", () => {
-    expect(getSkinTone("👍🏾")).toBe("brown");
+  it("should return `medium-dark` for emoji with `medium-dark` skin tone", () => {
+    expect(getSkinTone("👍🏾")).toBe("medium-dark");
   });
 
-  it("should return dark for emoji with dark skin tone", () => {
+  it("should return `dark` for emoji with `dark` skin tone", () => {
     expect(getSkinTone("👍🏿")).toBe("dark");
   });
 
@@ -144,7 +135,7 @@ describe("get skin tone", () => {
   });
 
   it("should return the first skin tone for emoji with multiple skin tones", () => {
-    expect(getSkinTone("👩🏼‍❤️‍👨🏿")).toBe("cream");
+    expect(getSkinTone("👩🏼‍❤️‍👨🏿")).toBe("medium-light");
   });
 });
 
