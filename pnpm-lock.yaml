@@ -9,10 +9,10 @@ importers:
   .:
     devDependencies:
       '@luxass/eslint-config':
-        specifier: ^4.19.0
+        specifier: 4.19.0
         version: 4.19.0(@vue/compiler-sfc@3.5.13)(eslint-plugin-format@1.0.1(eslint@9.29.0(jiti@2.4.2)))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)(vitest@3.2.3(@types/debug@4.1.12)(@types/node@22.16.0)(jiti@2.4.2)(yaml@2.8.0))
       '@types/node':
-        specifier: ^22.10.10
+        specifier: 22.16.0
         version: 22.16.0
       eslint:
         specifier: ^9.29.0
@@ -21,13 +21,13 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(eslint@9.29.0(jiti@2.4.2))
       publint:
-        specifier: ^0.3.12
+        specifier: 0.3.12
         version: 0.3.12
       tsdown:
-        specifier: ^0.12.7
+        specifier: 0.12.9
         version: 0.12.9(publint@0.3.12)(typescript@5.8.3)
       typescript:
-        specifier: ^5.8.3
+        specifier: 5.8.3
         version: 5.8.3
       vitest:
         specifier: ^3.2.3
