@@ -8,7 +8,7 @@
     "email": "lucasnrgaard@gmail.com",
     "url": "https://luxass.dev"
   },
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.30.1",
   "license": "MIT",
   "homepage": "https://github.com/mojisdev/skin-tones",
   "repository": {
@@ -52,12 +52,12 @@
   },
   "devDependencies": {
     "@luxass/eslint-config": "4.19.0",
-    "@types/node": "22.16.0",
+    "@types/node": "22.19.11",
     "eslint": "9.29.0",
     "eslint-plugin-format": "1.0.1",
-    "publint": "0.3.12",
-    "tsdown": "0.12.9",
-    "typescript": "5.8.3",
+    "publint": "0.3.17",
+    "tsdown": "0.20.3",
+    "typescript": "5.9.3",
     "vitest": "3.2.3"
   },
   "pnpm": {
